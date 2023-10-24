@@ -17,8 +17,8 @@ const getData = cb => {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             cb(JSON.parse(this.responseText));
-            /* This responseText is not actually JSON - it's a string formulated to 
-               look like JSON. To convert it to JSON, we use the JSON.parse()
+            /* This responseText is not actually JSON; it's a string formulated
+               to look like JSON. To convert it to JSON, we use the JSON.parse()
                method. */
         } /* Problem - the responseText isn't accessible outside the function. 
             Even 
@@ -27,9 +27,14 @@ const getData = cb => {
     };
 };
 
+/* Using getData we can grab data - the responseText - outside the function 
+   that we've used to get it. This bypasses the need for a timeout. */
 getData(function (data) {
     console.log(data);
 });
+/* Callbacks grant us more control over our code; they're only run when we want
+   them to be - in this case, when the responseText we want has actually been
+   gotten. */
 
 // setTimeout(function () {
 //     console.log(data);
