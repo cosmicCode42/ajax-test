@@ -78,9 +78,13 @@ const writeToDocument = url => {
         });
 
         // prints out a table with our headers and all our rows
-        el.innerHTML = `<table>${tableHeaders}${tableRows}</table>${pagination}`;
+        el.innerHTML = `<table>${tableHeaders}${tableRows}</table>${pagination}`.replace(/,/g, "");
     });
 };
+
+/* /,/g is a regular expression. It means: 'find all instances of a comma'.
+   - the /,/ is the comma
+   - g added on the end means 'find all instances of this' */
 
 /* Other HTTP codes:
    - 301: Moved Permanently
