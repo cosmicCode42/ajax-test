@@ -48,6 +48,9 @@ const getData = (type, cb) => {
    depending on different circumstances, such as network speed.
    Solution: use our own callback functions! */
 
+// Following is code that gets our retrieved data displayed in table format.
+
+// this makes table headers for use in a table to be put on the page
 const getTableHeaders = obj => {
     var tableHeaders = [];
 
@@ -56,15 +59,26 @@ const getTableHeaders = obj => {
     });
 
     return `<tr>${tableHeaders}</tr>`;
-}; // this makes table headers for use in a table to be put on the page
+};
 
+
+
+// the main meat of the table creation code.
 const writeToDocument = type => {
     var tableRows = []; // this stores all our table's rows
     var el = document.getElementById("data");
     el.innerHTML = ""; // this resets the page when a button is clicked
     getData(type, function (data) {
+
+        // Pagination
+        var pagination;
+        if (data.next || data.previous) {
+            pagination = generatePaginationButtons(data.next, data.previous);
+        }
+
         data = data.results; //gets us what we actually want
         var tableHeaders = getTableHeaders(data[0]); //gets our table headers
+
         data.forEach(function (item) {
             var dataRow = []; // stores each row
 
